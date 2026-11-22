@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="src/ProjectTemplate/PodNet.ProjectTemplate.csproj" />
+  <Project Path="tests/ProjectTemplate.Tests/PodNet.ProjectTemplate.Tests.csproj" />
+</Solution>

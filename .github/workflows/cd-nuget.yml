@@ -1,2 +1,4 @@
-on: { push: { tags: ["v[0-9]+.[0-9]+.[0-9]+*"] } }
-jobs: { publish: { uses: podNET-Hungary/pod-nugetizer/.github/workflows/default.yml@v1, secrets: inherit }}
+# Disabled until the SDK and action release gates are complete.
+on: { workflow_dispatch: {} }
+permissions: { contents: read }
+jobs: { validation: { runs-on: ubuntu-latest, steps: [{ uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1, with: { persist-credentials: false } }, { uses: actions/setup-dotnet@0f4a354dd5547a28c70b7853dbd95d5b67886e73, with: { global-json-file: global.json } }, { run: 'dotnet pack PodNet.Templates.slnx -c Release' }] } }

@@ -1,6 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>netstandard2.0</TargetFramework>
+		<TargetFramework>net11.0</TargetFramework>
+		<IsPackable>true</IsPackable>
+		<Authors>podNET Hungary, Gábor Szabó</Authors>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<RepositoryUrl>https://github.com/podnet-dev/PodNet.Templates</RepositoryUrl>
+		<PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		
 		<PackageType>Template</PackageType>
 		<Description>Custom templates for PodNet packages</Description>
@@ -18,13 +24,12 @@
 		<NoDefaultExcludes>true</NoDefaultExcludes>
         <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
 
-		<NoWarn>$(NoWarn);CS8021</NoWarn>
+		<NoWarn>$(NoWarn);CS8021;CS2008</NoWarn>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="PodNet.NuGet.Core" PrivateAssets="all" />
-		<PackageReference Remove="NETStandard.Library" />
-		<Content Include="content\**\*"/>
+		<None Include="../../README.md" Pack="true" PackagePath="/" />
+		<Content Include="content/**/*" Exclude="content/**/bin/**;content/**/obj/**;content/**/artifacts/**;content/**/.vs/**;content/**/.vscode/**;content/**/.idea/**;content/**/.git/**;content/**/*.user;content/**/*.suo" />
 		<Compile Remove="**\*" />
 	</ItemGroup>
 

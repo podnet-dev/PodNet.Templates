@@ -2,5 +2,7 @@
 	<PropertyGroup>
 		<UseArtifactsOutput>true</UseArtifactsOutput>
 		<IsPackable>false</IsPackable>
+		<LangVersion>15.0</LangVersion>
+		<Nullable>enable</Nullable>
 	</PropertyGroup>
 </Project>
