@@ -89,3 +89,4 @@ try {
     if ($deltas.Count -ne 1 -or $deltas[0].fact -ne 'library/Release/net9.0/package/ref/Managed' -or $deltas[0].actual -ne '[2.0]') { throw ($deltas|ConvertTo-Json) }
     Write-Host 'PASS one conditional managed version delta'
 } finally { Remove-Item -LiteralPath $temp -Recurse -Force }
+exit 0  # Expected drift/unable child exits are assertions, not a suite failure.
