@@ -1,0 +1,36 @@
+name: Template acceptance
+on:
+  pull_request:
+permissions: { contents: read }
+jobs:
+  acceptance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with: { persist-credentials: false }
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: podnet-dev/PodNet.NuGet.Core
+          ref: afc89f91a7fc31c51a14cbbbfe5663a55a6e2144
+          path: .sdk-source
+          persist-credentials: false
+      - uses: actions/setup-dotnet@0f4a354dd5547a28c70b7853dbd95d5b67886e73
+        with: { global-json-file: global.json }
+      - name: Build SDK candidate
+        shell: pwsh
+        run: |
+          dotnet pack .sdk-source/sdk/PodNet.Sdk/PodNet.Sdk.csproj -c Release -o "$env:RUNNER_TEMP/sdk-feed" -p:Version=0.1.0-preview.1
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Test actual template package
+        shell: pwsh
+        run: ./tests/acceptance.ps1 -SdkFeed "$env:RUNNER_TEMP/sdk-feed" -OutputFeed "$env:RUNNER_TEMP/template-feed"
+      - name: Check semantic detection
+        shell: pwsh
+        run: |
+          python3 -m venv "$env:RUNNER_TEMP/venv"
+          $python = "$env:RUNNER_TEMP/venv/bin/python"
+          & $python -m pip install -r tools/drift/requirements.txt
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          & $python -B tools/drift/test_workflow.py
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          ./tools/drift/Probe.ps1 -TemplatePackage (Get-ChildItem "$env:RUNNER_TEMP/template-feed/*.nupkg").FullName -SdkFeed "$env:RUNNER_TEMP/sdk-feed" -Python $python

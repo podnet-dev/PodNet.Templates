@@ -1,6 +1,12 @@
 {
   "sdk": {
     "version": "$GlobalJsonSdkVersion$",
-    "rollForward": "latestMajor"
-  }
+    "rollForward": "latestPatch",
+    "allowPrerelease": false
+  },
+  "msbuild-sdks": {
+    "PodNet.Sdk": "0.1.0-preview.1",
+    "MSTest.Sdk": "4.5.3"
+  },
+  "test": { "runner": "Microsoft.Testing.Platform" }
 }

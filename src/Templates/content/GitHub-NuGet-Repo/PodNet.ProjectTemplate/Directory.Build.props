@@ -1,9 +1,6 @@
 <Project>
+	<Import Project="Sdk.props" Sdk="PodNet.Sdk" />
 	<PropertyGroup>
-		<LangVersion>$LangVersion$</LangVersion>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<UseArtifactsOutput>true</UseArtifactsOutput>
-		<IsPackable>false</IsPackable>
+		<PodNetCopyrightYear>$CopyrightYear$</PodNetCopyrightYear>
 	</PropertyGroup>
 </Project>

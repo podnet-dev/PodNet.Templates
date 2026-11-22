@@ -1,16 +1,16 @@
 # PodNet.ProjectTemplate [![NuGet](https://img.shields.io/nuget/v/PodNet.ProjectTemplate)](https://www.nuget.org/packages/PodNet.ProjectTemplate/)
 $PodNetPackageDescription$
 
-## Usage
+## Development
 
-## Contributing and Support
+Install the stable .NET SDK specified in `global.json`. The preview `PodNet.Sdk` must be available from a configured NuGet source before evaluating projects. Add library code under `src` and real source tests under `tests`; the test project targets .NET 11 even if the library targets an earlier framework.
 
-This project is intended to be widely usable, but no warranties are provided. If you want to contact us, feel free to do so in the org's [[Discussions](https://github.com/orgs/podNET-Hungary/discussions/)], at our website at [podnet.hu](https://podnet.hu), or find us anywhere from [LinkedIn](https://www.linkedin.com/company/podnet-hungary/) to [Meetup](https://www.meetup.com/budapest-net-meetup/), [YouTube](https://www.youtube.com/@podNET) or [X](https://twitter.com/podNET_Hungary).
+Run `dotnet build` and `dotnet pack -c Release` from the repository root. After adding tests, run `dotnet test`; an empty test project is not a meaningful test suite and may return a non-success exit code. Update `PodNetCopyrightYear` in `Directory.Build.props` each year before a Release pack. Review the package metadata and repository URLs before publishing.
 
-Any kinds of contributions from issues to PRs and open discussions are welcome!
+## Publishing
 
-Don't forget to give us a ⭐ if you like this repo (it's free to give kudos!) or share it on socials!
+The tag workflow uses the composite action in a job owned by this repository. Configure NuGet Trusted Publishing for the repository and workflow, set `NUGET_USER`, and ensure the pinned SDK and action are available before tagging. The workflow skips package integration tests; add them and the `integration` stage when the repository tests its packaged output.
 
-## Sponsorship
+## Contributing
 
-If you're using our work or like what you see, consider supporting us. Every bit counts. 🙏 [See here for more info.](https://github.com/podNET-Hungary/PodNet.NuGet.Core/blob/main/src/PodNet.NuGet.Core/build/SPONSORS.md)
+Issues and pull requests are welcome.
